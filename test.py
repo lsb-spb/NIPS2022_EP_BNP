@@ -37,7 +37,7 @@ def main(args):
     ckpt = load_checkpoint(args)
     state_dict, trigger = ckpt['state_dict'], ckpt['trigger']
     num_classes, train_loader, val_loader, holdout_loader, test_clean_loader, test_poisoned_loader, _ = get_dataloader(args, trigger)
-    net = get_model(args.model, num_classes).to(args.device)
+    net = get_model(args.model).to(args.device)
     net.load_state_dict(state_dict)
 
     print('Before prunning')

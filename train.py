@@ -57,7 +57,7 @@ def main(args):
     print(args)
     num_classes, train_loader, val_loader, holdout_loader, test_clean_loader, test_poisoned_loader, trigger = get_dataloader(args)
 
-    net = get_model(args.model, num_classes).to(args.device)
+    net = get_model(args.model).to(args.device)
  
     optimizer = torch.optim.SGD(net.parameters(), lr=args.lr, momentum=args.momentum, weight_decay=args.weight_decay)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.epochs)

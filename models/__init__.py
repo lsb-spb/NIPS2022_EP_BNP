@@ -1,9 +1,7 @@
-from .resnet import resnet20
-import torch.nn as nn
+from .resnet import resnet20  
 
-
-def get_model(model, num_classes, norm_layer=nn.BatchNorm2d):
+def get_model(model):
     if model == 'resnet20':
-        return resnet20(num_classes, norm_layer=norm_layer)
+        return resnet20()   
     else:
         raise ValueError(f"Unknown model: {model}")
