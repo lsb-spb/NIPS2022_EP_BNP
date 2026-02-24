@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='PyTorch Backdoor Training') 
 
-    parser.add_argument('--model', default='resnet18', type=str,
+    parser.add_argument('--model', default='resnet20', type=str,
                         help='network structure choice')
     parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                         help='number of data loading workers (default: 4)')
