@@ -38,7 +38,7 @@ def main(args):
     state_dict, trigger = ckpt['state_dict'], ckpt['trigger']
     num_classes, train_loader, val_loader, holdout_loader, test_clean_loader, test_poisoned_loader, _ = get_dataloader(args, trigger)
     net = get_model(args.model).to(args.device)
-    net.load_state_dict(state_dict)
+    net.load_state_dict(state_dict, strict=False)
 
     print('Before prunning')
     acc = val(net, train_loader)

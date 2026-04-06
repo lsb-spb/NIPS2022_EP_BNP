@@ -93,17 +93,17 @@ def CLP(net, u):
 # If you want to use the full training dataset for better performance, please comment the break in line 111.
 def EP(sd_ori, k, mixed_loader, args, num_classes):
     net = get_model(args.model, num_classes, BatchNorm2d_ent).to(args.device)
-    net.load_state_dict(sd_ori)
+    net.load_state_dict(sd_ori, strict=False)
     net.eval()
     entrp = {}
     batch_feats_total = {}
     for name, m in net.named_modules():
         if isinstance(m, nn.BatchNorm2d):
-            batch_feats_total[name] = torch.tensor([]).cuda()
+            batch_feats_total[name] = torch.tensor([]).to(args.device)
     with torch.no_grad():
         for i, data in enumerate(mixed_loader):
             inputs, labels = data
-            inputs, labels = inputs.cuda(), labels.cuda()
+            inputs, labels = inputs.to(args.device), labels.to(args.device)
             outputs = net(inputs)
             for name, m in net.named_modules():
                 if isinstance(m, nn.BatchNorm2d):
@@ -141,7 +141,7 @@ def EP(sd_ori, k, mixed_loader, args, num_classes):
 # Just set args.batch_size to be the size of val_loader (500 for CIFAR-10)
 def BNP(sd_ori, k, validate_loader, args, num_classes):
     net = get_model(args.model, num_classes, BatchNorm2d_gau).to(args.device)
-    net.load_state_dict(sd_ori)
+    net.load_state_dict(sd_ori, strict=False)
     index = {}
     net.eval()
     with torch.no_grad():
